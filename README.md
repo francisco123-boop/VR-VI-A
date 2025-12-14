@@ -3,8 +3,8 @@
 # [Produccion Uva] - [Viña]
 
 > **Equipo:** [Francisco Javier Martinez Garcia Catalan, Ricardo Aumente Lopez]  
-> **Opción:** [A) Sector / B) Creativa]  
-> **URL:** [](...)
+> **Opción:** [A) Sector
+> **URL:** [https://github.com/francisco123-boop/VR-VI-A](...)
 
 ---
 
@@ -13,7 +13,7 @@
 | Característica | Descripción |
 |----------------|-------------|
 | Imágenes 360° | `<a-sky>` |
-| Modelos 3D | `<a-gltf-model>` |
+| Modelos 3D | `<a-glb>` |
 | Interactividad | `event-set`, `animation` |
 | VR | WebXR |
 
