@@ -1,6 +1,6 @@
 # VR-VI-A
 
-# [Título del Tour] - [Sector o Idea Creativa]
+# [Produccion Uva] - [Viña]
 
 > **Equipo:** [Francisco Javier Martinez Garcia Catalan, Ricardo Aumente Lopez]  
 > **Opción:** [A) Sector / B) Creativa]  
