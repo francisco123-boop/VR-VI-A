@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Tour VR - Planta de Producción</title>
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+</head>
+<body>
+  <a-scene>
+    <!-- Cielo oscuro tipo fábrica -->
+    <a-sky color="#1a1a1a"></a-sky>
+    
+    <!-- Suelo de fábrica -->
+    <a-plane position="0 0 0" rotation="-90 0 0" width="25" height="25" color="#3C3C3C"></a-plane>
+    
+    <a-assets>
+  <a-asset-item
+    id="discobolus-model"
+    src="puerta_abierta.glb">
+  </a-asset-item>
+</a-assets>
+
+<a-entity
+  gltf-model="#discobolus-model"
+  position="-2 1 5"
+  rotation="0 0 0"
+  scale="2 2 2">
+</a-entity>
+
+
+    <!-- Paredes -->
+    
+    <a-box position="0 2.5 -8" width="25" height="5" depth="0.2" color="#505050"></a-box>
+    <a-box position="-12 2.5 0" width="0.2" height="5" depth="20" color="#505050"></a-box>
+    <a-box position="12 2.5 0" width="0.2" height="5" depth="20" color="#505050"></a-box>
+    
+    <!-- Iluminación tipo fábrica -->
+    <a-light type="ambient" intensity="0.4"></a-light>
+    <a-light type="directional" position="0 8 0" intensity="0.7"></a-light>
+    <a-light type="point" position="3 4 -3" intensity="1.2" color="#FFA500"></a-light>
+    <a-light type="point" position="-3 4 -3" intensity="1.2" color="#FFA500"></a-light>
+    <a-light type="point" position="0 4 2" intensity="1" color="#FFA500"></a-light>
+    
+    <!-- ========== MÁQUINA 1: PRENSADORA ========== -->
+    <a-entity id="prensadora" position="-4 0 -4">
+      <!-- Base de la máquina -->
+      <a-box position="0 0.5 0" width="2" height="1" depth="2" color="#2F4F4F"></a-box>
+      
+      <!-- Pistón animado (sube y baja) -->
+      <a-cylinder position="0 2 0" 
+                  radius="0.3" 
+                  height="1.5"
+                  color="#CD7F32"
+                  animation="property: position; to: 0 1.2 0; dur: 2000; dir: alternate; loop: true; easing: easeInOutCubic">
+      </a-cylinder>
+      
+      <!-- Botón de control -->
+      <a-box position="1.2 1.2 0" 
+             width="0.3" 
+             height="0.6" 
+             depth="0.4" 
+             color="#1E90FF"
+             class="clickable">
+        <a-text value="PRENSA" align="center" position="0 0 0.21" width="0.5" color="#00FF00"></a-text>
+      </a-box>
+      
+      <!-- LED indicador parpadeante -->
+      <a-sphere position="1.2 1.6 0.25" 
+                radius="0.05" 
+                color="#00FF00"
+                animation="property: components.material.color; from: #00FF00; to: #004400; dur: 800; dir: alternate; loop: true">
+      </a-sphere>
+      
+      <!-- Etiqueta -->
+      <a-text value="PRENSADORA\nCapacidad: 500kg/h" 
+              position="0 2.8 0" 
+              align="center" 
+              width="1.5"
+              color="#FFD700">
+      </a-text>
+    </a-entity>
+    
+    <!-- ========== MÁQUINA 2: FERMENTADOR ========== -->
+    <a-entity position="0 0 -4">
+      <!-- Tanque giratorio -->
+      <a-cylinder position="0 1.5 0" 
+                  radius="0.8" 
+                  height="3"
+                  color="#8B4513"
+                  animation="property: rotation; to: 0 360 0; dur: 12000; loop: true; easing: linear">
+        <!-- Ventana de inspección -->
+        <a-ring position="0 0.5 0.81" 
+                radius-inner="0.25" 
+                radius-outer="0.35" 
+                color="#87CEEB" 
+                opacity="0.6">
+        </a-ring>
+      </a-cylinder>
+      
+      <!-- Tubería superior -->
+      <a-cylinder position="0 3.2 0" radius="0.15" height="0.5" color="#C0C0C0"></a-cylinder>
+      
+      <!-- Panel digital interactivo -->
+      <a-plane position="0 1.5 1" 
+               width="0.7" 
+               height="0.5" 
+               color="#000000"
+               class="clickable">
+        <a-text id="temperatura" 
+                value="TEMP: 18.2°C\nTIEMPO: 00:00" 
+                align="center" 
+                position="0 0 0.01"
+                width="0.6"
+                color="#00FF00">
+        </a-text>
+      </a-plane>
+      
+      <!-- Etiqueta -->
+      <a-text value="FERMENTADOR\nTiempo: 14 dias" 
+              position="0 3.8 0" 
+              align="center" 
+              width="1.6"
+              color="#FFD700">
+      </a-text>
+    </a-entity>
+    
+    <!-- ========== MÁQUINA 3: EMBOTELLADORA ========== -->
+    <a-entity position="4 0 -4">
+      <!-- Estructura principal -->
+      <a-box position="0 1 0" 
+             width="2.5" 
+             height="2" 
+             depth="6" 
+             color="#696969">
+      </a-box>
+      
+      <!-- Cinta transportadora animada -->
+      <a-box position="0 0.3 2" 
+             width="2.5" 
+             height="0.1" 
+             depth="10" 
+             color="#4A4A4A">
+      </a-box>
+      
+      <!-- Botella 1 moviéndose -->
+      <a-cylinder position="0 0.7 1.5" 
+                  radius="0.1" 
+                  height="0.5"
+                  color="#228B22"
+                  animation="property: position; to: 0 0.7 5; dur: 4000; loop: true; easing: linear">
+      </a-cylinder>
+      
+      <!-- Botella 2 moviéndose (desfasada) -->
+      <a-cylinder position="0.5 0.7 2.5" 
+                  radius="0.1" 
+                  height="0.5"
+                  color="#228B22"
+                  animation="property: position; to: 0.5 0.7 6; dur: 4000; loop: true; easing: linear; delay: 1000">
+      </a-cylinder>
+      
+      <!-- Botella 3 moviéndose (más desfasada) -->
+      <a-cylinder position="-0.5 0.7 3" 
+                  radius="0.1" 
+                  height="0.5"
+                  color="#228B22"
+                  animation="property: position; to: -0.5 0.7 6.5; dur: 4000; loop: true; easing: linear; delay: 2000">
+      </a-cylinder>
+      
+      <!-- Brazo robótico oscilante -->
+      <a-box position="1.5 2 0" 
+             width="0.2" 
+             height="1" 
+             depth="0.2" 
+             color="#FF6347"
+             animation="property: rotation; to: 0 0 -50; dur: 2500; dir: alternate; loop: true; easing: easeInOutSine">
+      </a-box>
+      
+      <!-- Etiqueta -->
+      <a-text value="EMBOTELLADORA\nVelocidad: 120 bot/min" 
+              position="0 2.8 0" 
+              align="center" 
+              width="2"
+              color="#FFD700">
+      </a-text>
+    </a-entity>
+    
+    <!-- ========== PANEL DE CONTROL CENTRAL ========== -->
+    <a-entity position="0 2 2">
+      <a-plane width="3.5" height="2.2" color="#000033" opacity="0.95">
+        <a-text id="panel-datos" 
+                value="=== PANEL DE PRODUCCION ===\n\nPRENSADORA: ACTIVA\nFERMENTADOR: 18.2°C - ACTIVO\nEMBOTELLADORA: 120 bot/min\n\nProduccion hoy: 0 botellas\nTiempo activo: 00:00:00\nEficiencia: 100%\n\n[Sistema operativo]" 
+                align="center"
+                position="0 0 0.01"
+                width="3.2"
+                color="#00FF00">
+        </a-text>
+      </a-plane>
+      
+      <!-- Luces indicadoras parpadeantes -->
+      <a-sphere position="-1.6 1 0.1" 
+                radius="0.04" 
+                color="#00FF00"
+                animation="property: components.material.color; from: #00FF00; to: #004400; dur: 600; dir: alternate; loop: true">
+      </a-sphere>
+      
+      <a-sphere position="-1.4 1 0.1" 
+                radius="0.04" 
+                color="#00FF00"
+                animation="property: components.material.color; from: #00FF00; to: #004400; dur: 600; dir: alternate; loop: true; delay: 300">
+      </a-sphere>
+    </a-entity>
+    
+    <!-- Barriles de almacenamiento -->
+    <a-cylinder position="-6 0.5 2" radius="0.4" height="1" color="#6F4E37" class="clickable"></a-cylinder>
+    <a-cylinder position="-7 0.5 2" radius="0.4" height="1" color="#6F4E37"></a-cylinder>
+    <a-cylinder position="-6.5 0.5 3" radius="0.4" height="1" color="#6F4E37"></a-cylinder>
+    
+    <!-- Señal de seguridad -->
+    <a-plane position="-2 1.5 -3" width="0.8" height="0.8" color="#FFFF00">
+      <a-text value="PRECAUCION\nMAQUINARIA" align="center" position="0 0 0.01" width="0.7" color="#000000"></a-text>
+    </a-plane>
+    
+    <!--PORTAL A ESCENA 3-->
+    <a-entity id="portal-escena3" position="0 1.8 6">
+      <!-- Base del portal -->
+      <a-box position="0 -0.9 0" width="2.8" height="0.35" depth="0.55" color="#1E90FF"></a-box>
+      
+      <!-- Anillo exterior CLICKEABLE -->
+      <a-torus id="anillo-portal" 
+               radius="1.2" 
+               radius-tubular="0.16" 
+               color="#32CD32"
+               material="metalness: 1; roughness: 0; emissive: #32CD32; emissiveIntensity: 1.2"
+               animation="property: rotation; to: 0 0 -360; loop: true; dur: 5000; easing: linear"
+               class="clickable">
+      </a-torus>
+      
+      <!-- Anillo interior -->
+      <a-torus radius="0.8" 
+               radius-tubular="0.1" 
+               color="#00FF00"
+               material="metalness: 1; roughness: 0; emissive: #00FF00; emissiveIntensity: 1.5"
+               animation="property: rotation; to: 0 0 360; loop: true; dur: 4000; easing: linear">
+      </a-torus>
+      
+      <!-- Centro brillante -->
+      <a-circle radius="0.6" color="#7CFC00" opacity="0.5"
+                animation="property: scale; to: 1.25 1.25 1.25; dur: 1800; dir: alternate; loop: true">
+      </a-circle>
+      
+      <!-- Texto del portal -->
+      <a-plane position="0 0 0.3" width="2.6" height="0.9" color="#000000" opacity="0.8">
+        <a-text value=">>> SALA DE PRODUCTOS <<<\n\n CLICK PARA ENTRAR " 
+                align="center" 
+                position="0 0 0.02" 
+                width="2.3" 
+                color="#FFFFFF"
+                animation="property: scale; to: 1.08 1.08 1.08; dur: 1200; dir: alternate; loop: true">
+        </a-text>
+      </a-plane>
+      
+      <!-- Efecto de partículas (simulado con esferas pequeñas) -->
+      <a-sphere position="0.5 0.5 0" radius="0.05" color="#32CD32" opacity="0.7"
+                animation="property: position; to: 0.5 1 0; dur: 2000; dir: alternate; loop: true">
+      </a-sphere>
+      <a-sphere position="-0.5 -0.5 0" radius="0.05" color="#32CD32" opacity="0.7"
+                animation="property: position; to: -0.5 -1 0; dur: 2000; dir: alternate; loop: true; delay: 500">
+      </a-sphere>
+      <a-sphere position="0 0.7 0" radius="0.05" color="#32CD32" opacity="0.7"
+                animation="property: position; to: 0 1.2 0; dur: 2000; dir: alternate; loop: true; delay: 1000">
+      </a-sphere>
+      <a-sphere position="0.7 0 0" radius="0.05" color="#32CD32" opacity="0.7"
+                animation="property: position; to: 1.1 0 0; dur: 2000; dir: alternate; loop: true; delay: 700">
+      </a-sphere>
+      <a-sphere position="-0.7 0 0" radius="0.05" color="#32CD32" opacity="0.7"
+                animation="property: position; to: -1.1 0 0; dur: 2000; dir: alternate; loop: true; delay: 1300">
+      </a-sphere>
+      
+      <!-- Flecha indicadora -->
+      <a-cone position="0 -1.5 0" radius-bottom="0.25" radius-top="0" height="0.45" color="#FFD700" rotation="180 0 0"
+              animation="property: position; to: 0 -1.15 0; dur: 1000; dir: alternate; loop: true; easing: easeInOutSine">
+      </a-cone>
+      
+      <!-- Luz del portal -->
+      <a-light type="point" intensity="2.5" color="#32CD32" distance="7"></a-light>
+    </a-entity>
+    
+    <!-- ========== MÚSICA DE FONDO ========== -->
+    <!-- Música ambiente de fábrica -->
+    <a-entity id="musica-ambiente" 
+              sound="src: url(musica_de_fondo.mp3); 
+                     autoplay: true; 
+                     loop: true; 
+                     volume: 0.5">
+    </a-entity>
+    
+    <!-- Sonido de máquinas trabajando (opcional) -->
+    <a-entity position="0 1 -4"
+              sound="src: url(); 
+                     autoplay: true; 
+                     loop: true; 
+                     volume: 10">
+    </a-entity>
+    
+    <!-- ========== CÁMARA CON CONTROLES VR ========== -->
+    <a-entity position="0 0 5">
+      <a-camera position="0 1.6 0" wasd-controls="acceleration: 15">
+        <a-cursor color="#00FF00" 
+                  fuse="true" 
+                  fuse-timeout="1500"
+                  raycaster="objects: .clickable"
+                  animation__click="property: scale; startEvents: click; from: 0.7 0.7 0.7; to: 1.4 1.4 1.4; dur: 150">
+          <a-ring position="0 0 -0.3" 
+                  radius-inner="0.02" 
+                  radius-outer="0.03" 
+                  material="color: cyan; shader: flat"
+                  animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500; easing: easeInCubic">
+          </a-ring>
+        </a-cursor>
+      </a-camera>
+    </a-entity>
+    
+  </a-scene>
+
+  <script>
+    console.log(' Cargando Escena 2 - Planta de Producción...');
+    
+    // Variables globales
+    let produccionTotal = 0;
+    let tiempoInicio = Date.now();
+    let prensadoraActiva = true;
+    
+    document.querySelector('a-scene').addEventListener('loaded', function() {
+      console.log('✅ Escena 2 CARGADA CORRECTAMENTE');
+      
+      const panelDatos = document.querySelector('#panel-datos');
+      const tempDisplay = document.querySelector('#temperatura');
+      
+      // ========== ACTUALIZAR DATOS EN TIEMPO REAL ==========
+      setInterval(() => {
+        const tiempoTotal = Math.floor((Date.now() - tiempoInicio) / 1000);
+        const horas = Math.floor(tiempoTotal / 3600);
+        const minutos = Math.floor((tiempoTotal % 3600) / 60);
+        const segundos = tiempoTotal % 60;
+        
+        // Simular producción
+        produccionTotal += Math.floor(Math.random() * 5);
+        const eficiencia = 95 + Math.floor(Math.random() * 6);
+        const temperatura = (17 + Math.random() * 2).toFixed(1);
+        
+        // Actualizar display de temperatura
+        tempDisplay.setAttribute('value', 
+          `TEMP: ${temperatura}°C\nTIEMPO: ${String(minutos).padStart(2,'0')}:${String(segundos).padStart(2,'0')}`
+        );
+        
+        // Actualizar panel principal
+        panelDatos.setAttribute('value',
+          `=== PANEL DE PRODUCCION ===\n\n` +
+          `PRENSADORA: ${prensadoraActiva ? 'ACTIVA' : 'STANDBY'}\n` +
+          `FERMENTADOR: ${temperatura}°C - ACTIVO\n` +
+          `EMBOTELLADORA: 120 bot/min\n\n` +
+          `Produccion hoy: ${produccionTotal} botellas\n` +
+          `Tiempo activo: ${String(horas).padStart(2,'0')}:${String(minutos).padStart(2,'0')}:${String(segundos).padStart(2,'0')}\n` +
+          `Eficiencia: ${eficiencia}%\n\n` +
+          `[Sistema operativo]`
+        );
+      }, 2000);
+      
+      // ========== CONTROL DE PRENSADORA ==========
+      const botonPrensa = document.querySelector('#prensadora .clickable');
+      if (botonPrensa) {
+        botonPrensa.addEventListener('click', function() {
+          prensadoraActiva = !prensadoraActiva;
+          console.log(`🔧 Prensadora ${prensadoraActiva ? 'ACTIVADA' : 'PAUSADA'}`);
+          
+          if (prensadoraActiva) {
+            botonPrensa.querySelector('a-text').setAttribute('value', 'PRENSA');
+            botonPrensa.querySelector('a-text').setAttribute('color', '#00FF00');
+          } else {
+            botonPrensa.querySelector('a-text').setAttribute('value', 'PAUSA');
+            botonPrensa.querySelector('a-text').setAttribute('color', '#FF0000');
+          }
+        });
+      }
+      
+      // ========== PANEL DE FERMENTADOR ==========
+      const panelFermentador = document.querySelectorAll('.clickable')[1];
+      if (panelFermentador) {
+        panelFermentador.addEventListener('click', function() {
+          console.log('📊 Datos del fermentador consultados');
+        });
+      }
+      
+      // ========== BARRILES INTERACTIVOS ==========
+      const barriles = document.querySelectorAll('a-cylinder.clickable');
+      barriles.forEach((barril, index) => {
+        barril.addEventListener('click', function() {
+          console.log(`🛢️ Barril ${index + 1} inspeccionado`);
+          barril.setAttribute('animation__bounce', 
+            'property: position; to: -6 0.8 2; dur: 300; dir: alternate; loop: 2'
+          );
+        });
+      });
+      
+      // ========== PORTAL A ESCENA 3 ==========
+      const anilloPortal = document.querySelector('#anillo-portal');
+      
+      anilloPortal.addEventListener('click', function() {
+        console.log('🚪 ¡Portal activado! Navegando a Escena 3 - Sala de Productos...');
+        
+        // Efecto de transición
+        const sky = document.querySelector('a-sky');
+        sky.setAttribute('animation', {
+          property: 'components.material.color',
+          to: '#FFFFFF',
+          dur: 1000,
+          easing: 'easeInCubic'
+        });
+        
+        // Expandir el portal
+        anilloPortal.setAttribute('animation__expand', {
+          property: 'scale',
+          to: '3 3 3',
+          dur: 1000,
+          easing: 'easeInCubic'
+        });
+        
+        setTimeout(() => {
+          window.location.href = 'escena3.html';
+        }, 1000);
+      });
+      
+      anilloPortal.addEventListener('mouseenter', function() {
+        anilloPortal.setAttribute('material', 'emissiveIntensity', '2');
+        anilloPortal.setAttribute('animation__hover', {
+          property: 'scale',
+          to: '1.15 1.15 1.15',
+          dur: 300
+        });
+      });
+      
+      anilloPortal.addEventListener('mouseleave', function() {
+        anilloPortal.setAttribute('material', 'emissiveIntensity', '1.2');
+        anilloPortal.setAttribute('animation__hover', {
+          property: 'scale',
+          to: '1 1 1',
+          dur: 300
+        });
+      });
+      
+      // Crear botellas adicionales dinámicamente cada 3 segundos
+      setInterval(() => {
+        const embotelladora = document.querySelector('[position="4 0 -4"]');
+        const nuevaBotella = document.createElement('a-cylinder');
+        
+        const posX = (Math.random() - 0.5) * 0.8;
+        nuevaBotella.setAttribute('position', `${posX} 0.7 1`);
+        nuevaBotella.setAttribute('radius', '0.1');
+        nuevaBotella.setAttribute('height', '0.5');
+        nuevaBotella.setAttribute('color', '#228B22');
+        nuevaBotella.setAttribute('animation', 
+          'property: position; to: ' + posX + ' 0.7 6; dur: 4000; easing: linear'
+        );
+        
+        embotelladora.appendChild(nuevaBotella);
+        
+        // Eliminar después de la animación
+        setTimeout(() => {
+          if (nuevaBotella.parentNode) {
+            nuevaBotella.parentNode.removeChild(nuevaBotella);
+          }
+        }, 4500);
+      }, 3000);
+    });
+  </script>
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+</body>
+</html>
